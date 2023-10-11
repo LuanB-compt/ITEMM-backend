@@ -11,7 +11,18 @@ export class UserController{
         this.initRoutes();
     }
 
-    private initRoutes () {
+    private initRoutes(){
+        this.router.get(this.path + '/:id', this.getUserById.bind(this));
+    }
 
+    public async getUserById(req: Request, res: Response){
+        const user = await this.userService.getUserById(req.params.id);
+        if (user == undefined) {
+            res.status(400);
+        }
+        else {
+            res.status(200).send(user); 
+        };
+        return 
     }
 }
