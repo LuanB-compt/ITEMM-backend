@@ -11,6 +11,14 @@ export class UserRepository{
         else {return doc.data()};
     }
 
+    public async createUser(newUser: User): Promise<User | undefined>{
+        //const result = await (await db.collection('User').add(newUser)).set(newUser);
+        const result = (await db.collection('User').add(newUser)).withConverter(documentConverter<User>());
+        result.set(newUser);
+        const doc = await result.get()
+        return this.checkDoc(doc);
+    }
+
     public async findUserById(id: string): Promise<User | undefined>{
         const user = db.collection('User').doc(id).withConverter(documentConverter<User>());
         const doc = await user.get();

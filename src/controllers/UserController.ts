@@ -12,7 +12,20 @@ export class UserController{
     }
 
     private initRoutes(){
+        this.router.post(this.path, this.postCreateUser.bind(this));
         this.router.get(this.path + '/:id', this.getUserById.bind(this));
+    }
+
+    public async postCreateUser(req: Request, res: Response){
+        const {name, email, password, operator} = req.body;
+        const newUser: User = {name, email, password, operator}
+        const response = await this.userService.createUser(newUser);
+        if (response == undefined) {
+            res.status(400).send({message:"Error"});
+        }
+        else {
+            res.status(200).send(response);
+        }
     }
 
     public async getUserById(req: Request, res: Response){
