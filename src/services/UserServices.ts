@@ -10,7 +10,7 @@ export class UserService{
         return this.userRepository.findUserById(id);
     }
 
-    public async createUser(newUser: User): Promise<User | undefined> {
+    public async postCreateUser(newUser: User): Promise<User | undefined> {
         return this.userRepository.createUser(newUser);
     }
 }
