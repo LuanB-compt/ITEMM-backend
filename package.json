@@ -2,9 +2,11 @@
   "name": "itemm-backend",
   "version": "1.0.0",
   "description": "Backend ITEMM mobile app with firebase.",
-  "main": "index.js",
+  "main": "./src/server.js",
+  "type":"module",
   "scripts": {
-    "dev": "node src/server.js",
+    "dev": "npx nodemon src/server.ts",
+    "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
