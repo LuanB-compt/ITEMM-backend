@@ -18,11 +18,10 @@ export class UserController{
     public async getUserById(req: Request, res: Response){
         const user = await this.userService.getUserById(req.params.id);
         if (user == undefined) {
-            res.status(400);
+            res.status(400).send({});
         }
         else {
             res.status(200).send(user); 
         };
-        return 
     }
 }

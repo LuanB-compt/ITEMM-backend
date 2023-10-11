@@ -9,7 +9,7 @@ class App {
     this.port = port;
  
     this.initializeMiddlewares();
-    //this.initializeControllers(controllers);
+    this.initializeControllers(controllers);
   }
  
   private initializeMiddlewares() {
