@@ -18,7 +18,7 @@ export class UserController{
     public async getUserById(req: Request, res: Response){
         const user = await this.userService.getUserById(req.params.id);
         if (user == undefined) {
-            res.status(400).send({});
+            res.status(400).send({message:"Error"});
         }
         else {
             res.status(200).send(user); 
