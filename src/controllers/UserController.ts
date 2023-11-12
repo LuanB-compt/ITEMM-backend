@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { User } from "../models/User";
+import { User, UserResponse} from "../models/User";
 import { UserService } from "../services/UserServices";
 
 export class UserController{
@@ -30,22 +30,22 @@ export class UserController{
     }
 
     public async postUpdateUserById(req: Request, res: Response){
-        const user = await this.userService.postUpdateUserById(req.params.id, req.body);
-        if (user == undefined) {
+        const response = await this.userService.postUpdateUserById(req.params.id, req.body);
+        if (response == undefined) {
             res.status(400).send({message:"Error"});
         }
         else {
-            res.status(200).send(user); 
+            res.status(200).send(response); 
         }; 
     }
 
     public async getUserById(req: Request, res: Response){
-        const user = await this.userService.getUserById(req.params.id);
-        if (user == undefined) {
+        const response = await this.userService.getUserById(req.params.id);
+        if (response == undefined) {
             res.status(400).send({message:"Error"});
         }
         else {
-            res.status(200).send(user); 
+            res.status(200).send(response); 
         };
     }
 }

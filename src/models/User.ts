@@ -4,3 +4,8 @@ export type User = {
     password: string;
     operator: boolean;
 };
+
+export type UserResponse = {
+    user: User | undefined,
+    id: string
+}
