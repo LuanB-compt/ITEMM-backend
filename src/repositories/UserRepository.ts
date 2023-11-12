@@ -24,4 +24,24 @@ export class UserRepository{
         const doc = await user.get();
         return this.checkDoc(doc);
     }
+
+    public async updateUserById(id: string, data: any): Promise<User | undefined>{
+        const user = db.collection('User').doc(id).withConverter(documentConverter<User>());
+        user.update({
+            name: "test2",
+            email: "lalalala",
+            password: "updated",
+            operator: false
+        })
+        .catch((err) => {
+            console.log("error update");
+            console.log(err);
+            return undefined;
+        })
+        .finally(async () => {
+            const doc = await user.get();
+            return this.checkDoc(doc);
+        });
+        return undefined;
+    }
 }

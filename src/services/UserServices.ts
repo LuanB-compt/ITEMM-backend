@@ -13,4 +13,8 @@ export class UserService{
     public async postCreateUser(newUser: User): Promise<User | undefined> {
         return this.userRepository.createUser(newUser);
     }
+
+    public async postUpdateUserById(id: string, data: any): Promise<User | undefined>{
+        return this.userRepository.updateUserById(id, data);
+    }
 }

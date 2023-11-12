@@ -13,6 +13,7 @@ export class UserController{
 
     private initRoutes(){
         this.router.post(this.path, this.postCreateUser.bind(this));
+        this.router.post(this.path + '/:id', this.postUpdateUserById.bind(this));
         this.router.get(this.path + '/:id', this.getUserById.bind(this));
     }
 
@@ -26,6 +27,16 @@ export class UserController{
         else {
             res.status(200).send(response);
         }
+    }
+
+    public async postUpdateUserById(req: Request, res: Response){
+        const user = await this.userService.postUpdateUserById(req.params.id, req.body);
+        if (user == undefined) {
+            res.status(400).send({message:"Error"});
+        }
+        else {
+            res.status(200).send(user); 
+        }; 
     }
 
     public async getUserById(req: Request, res: Response){
