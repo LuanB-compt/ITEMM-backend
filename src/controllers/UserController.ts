@@ -15,6 +15,7 @@ export class UserController{
         this.router.post(this.path, this.postCreateUser.bind(this));
         this.router.post(this.path + '/:id', this.postUpdateUserById.bind(this));
         this.router.get(this.path + '/:id', this.getUserById.bind(this));
+        this.router.get(this.path, this.getUserByPassword.bind(this));
     }
 
     public async postCreateUser(req: Request, res: Response){
@@ -23,6 +24,9 @@ export class UserController{
         const response = await this.userService.postCreateUser(newUser);
         if (response == undefined) {
             res.status(400).send({message:"Error"});
+        }
+        else if (response == false) {
+            res.status(409).send({message:"User already exist"});
         }
         else {
             res.status(200).send(response);
@@ -41,6 +45,16 @@ export class UserController{
 
     public async getUserById(req: Request, res: Response){
         const response = await this.userService.getUserById(req.params.id);
+        if (response == undefined) {
+            res.status(400).send({message:"Error"});
+        }
+        else {
+            res.status(200).send(response); 
+        };
+    }
+
+    public async getUserByPassword(req: Request, res: Response){
+        const response = await this.userService.getUserByPassword(req.body.password);
         if (response == undefined) {
             res.status(400).send({message:"Error"});
         }

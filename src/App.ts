@@ -1,4 +1,5 @@
 import express from 'express';
+const cors = require('cors');
  
 class App {
   public app: express.Application;
@@ -14,6 +15,7 @@ class App {
  
   private initializeMiddlewares() {
     this.app.use(express.json());
+    this.app.use(cors());
   }
  
   private initializeControllers(controllers: any[]) {
