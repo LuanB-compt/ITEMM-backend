@@ -8,7 +8,7 @@ export class CallRepository{
 
     private checkDoc(doc: DocumentSnapshot<Call>): CallReponse | undefined {
         if (doc == undefined){return undefined}
-        else {return {"reply":doc.data(), "id": doc.id}};
+        else {return {"call":doc.data(), "id": doc.id}};
     }
 
     public async createCall(newCall: Call): Promise<CallReponse | undefined>{

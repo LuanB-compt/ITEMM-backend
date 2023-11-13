@@ -6,6 +6,6 @@ export type Call = {
 }
 
 export type CallReponse = {
-    reply: Call | undefined,
+    call: Call | undefined,
     id: string
 }
