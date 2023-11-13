@@ -13,4 +13,8 @@ export class ReplyService{
     public async postUpdateReplyById(id: string, data: Reply): Promise<ReplyReponse | undefined>{
         return this.replyRepository.updateReplyById(id, data);
     }
+
+    public async getReplyById(id: string): Promise<ReplyReponse | undefined>{
+        return this.replyRepository.findReplyById(id);
+    }
 }

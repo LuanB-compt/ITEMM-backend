@@ -24,4 +24,10 @@ export class ReplyRepository {
         const doc = await reply.get();
         return this.checkDoc(doc);
     }
+
+    public async findReplyById(id: string): Promise<ReplyReponse | undefined> {
+        const reply = db.collection('Reply').doc(id).withConverter(documentConverter<Reply>());
+        const doc = await reply.get();
+        return this.checkDoc(doc);
+    }
 }

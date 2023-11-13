@@ -14,6 +14,7 @@ export class ReplyController {
     private initRoutes(){
         this.router.post(this.path, this.postCreateReply.bind(this));
         this.router.post(this.path + '/:id', this.postUpdateReplyById.bind(this));
+        this.router.get(this.path + '/:id', this.getReplyById.bind(this));
     }
 
     public async postCreateReply(req: Request, res: Response) {
@@ -30,6 +31,16 @@ export class ReplyController {
 
     public async postUpdateReplyById(req: Request, res: Response) {
         const response = await this.replyService.postUpdateReplyById(req.params.id, req.body);
+        if (response == undefined){
+            res.status(400).send({message:"Error"});
+        }
+        else {
+            res.status(200).send(response);
+        };
+    }
+
+    public async getReplyById(req: Request, res: Response) {
+        const response = await this.replyService.getReplyById(req.params.id);
         if (response == undefined){
             res.status(400).send({message:"Error"});
         }
