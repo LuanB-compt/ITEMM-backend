@@ -8,7 +8,12 @@ export class UserRepository{
 
     private checkDoc(doc: DocumentSnapshot<User>): UserResponse | undefined {
         if (doc == undefined){return undefined}
-        else {return {"user": doc.data(), "id":doc.id}};
+        else {return {
+            "name": doc.data()?.name,
+            "email": doc.data()?.email,
+            "id": doc.id,
+            "operator": doc.data()?.operator
+        }};
     }
 
     public async createUser(newUser: User): Promise<UserResponse | undefined>{

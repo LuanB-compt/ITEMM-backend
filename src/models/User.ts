@@ -6,6 +6,8 @@ export type User = {
 };
 
 export type UserResponse = {
-    user: User | undefined,
-    id: string
+    name: string | undefined;
+    email: string | undefined;
+    id: string | undefined;
+    operator: boolean | undefined;
 }

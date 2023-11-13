@@ -13,9 +13,9 @@ export class UserController{
 
     private initRoutes(){
         this.router.post(this.path, this.postCreateUser.bind(this));
+        this.router.post(this.path + "/login", this.getUserByEmailAndPasswd.bind(this));
         this.router.post(this.path + '/:id', this.postUpdateUserById.bind(this));
         this.router.get(this.path + '/:id', this.getUserById.bind(this));
-        this.router.get(this.path, this.getUserByEmailAndPasswd.bind(this));
     }
 
     public async postCreateUser(req: Request, res: Response){
