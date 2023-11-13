@@ -1,6 +1,6 @@
-import { Request, Response, Router } from "express";
-import { Call } from "../models/Call";
 import { CallService } from "../services/CallServices";
+import { Call } from "../models/Call";
+import { Request, Response, Router } from "express";
 
 export class CallController{
     public path: string = "/call";

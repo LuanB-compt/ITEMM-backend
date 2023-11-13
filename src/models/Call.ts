@@ -4,3 +4,8 @@ export type Call = {
     description: string;
     departament: string;
 }
+
+export type CallReponse = {
+    reply: Call | undefined,
+    id: string
+}
