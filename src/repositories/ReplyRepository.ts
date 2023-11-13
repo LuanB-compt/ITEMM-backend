@@ -17,4 +17,11 @@ export class ReplyRepository {
         const doc = await result.get();
         return this.checkDoc(doc);
     }
+
+    public async updateReplyById(id: string, data: Reply): Promise<ReplyReponse | undefined>{
+        const reply = db.collection('Reply').doc(id).withConverter(documentConverter<Reply>());
+        await reply.update(data);
+        const doc = await reply.get();
+        return this.checkDoc(doc);
+    }
 }
