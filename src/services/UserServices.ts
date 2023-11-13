@@ -10,8 +10,8 @@ export class UserService{
         return this.userRepository.findUserById(id);
     }
 
-    public async getUserByPassword(password: string): Promise<UserResponse | undefined> {
-        return this.userRepository.findUserByPassword(password);
+    public async getUserByEmailAndPasswd(email:string, password: string): Promise<UserResponse | undefined> {
+        return this.userRepository.findUserByEmailAndPasswd(email, password);
     }
 
     public async postCreateUser(newUser: User): Promise<UserResponse | undefined | boolean> {

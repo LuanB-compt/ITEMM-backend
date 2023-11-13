@@ -15,7 +15,7 @@ export class UserController{
         this.router.post(this.path, this.postCreateUser.bind(this));
         this.router.post(this.path + '/:id', this.postUpdateUserById.bind(this));
         this.router.get(this.path + '/:id', this.getUserById.bind(this));
-        this.router.get(this.path, this.getUserByPassword.bind(this));
+        this.router.get(this.path, this.getUserByEmailAndPasswd.bind(this));
     }
 
     public async postCreateUser(req: Request, res: Response){
@@ -53,10 +53,10 @@ export class UserController{
         };
     }
 
-    public async getUserByPassword(req: Request, res: Response){
-        const response = await this.userService.getUserByPassword(req.body.password);
+    public async getUserByEmailAndPasswd(req: Request, res: Response){
+        const response = await this.userService.getUserByEmailAndPasswd(req.body.email, req.body.password);
         if (response == undefined) {
-            res.status(400).send({message:"Error"});
+            res.status(401).send({message:"Error"});
         }
         else {
             res.status(200).send(response); 
