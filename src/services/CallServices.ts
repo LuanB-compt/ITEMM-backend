@@ -10,6 +10,10 @@ export class CallService{
         return this.callRepository.findCallById(id);
     }
 
+    public async getCallAll(): Promise<CallReponse | undefined>{
+        return 
+    }
+
     public async postCreateCall(newCall: Call): Promise<CallReponse | undefined> {
         return this.callRepository.createCall(newCall);
     }

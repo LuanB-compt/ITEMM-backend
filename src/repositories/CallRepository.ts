@@ -24,6 +24,18 @@ export class CallRepository{
         return this.checkDoc(doc);
     }
 
+    public async getCallAll(): Promise<CallReponse | undefined>{
+        const calls: CallReponse[] = [];
+        const querySnapshot = await db.collection('Call').get();
+        querySnapshot.forEach((doc) => {
+            const call = this.checkDoc(doc);
+            if (call) {
+                calls.push(call);
+            }
+        });
+        return calls;
+    }
+
     public async updateCallById(id: string, data: any): Promise<CallReponse | undefined>{
         const call = db.collection('Call').doc(id).withConverter(documentConverter<Call>());
         await call.update(data);

@@ -50,6 +50,16 @@ export class CallController{
         };
     }
 
+    public async getCallAll(req: Request, res: Response){
+        const call = await this.callService.getCallById(req.params.id);
+        if (call == undefined) {
+            res.status(400).send({message:"Error"});
+        }
+        else {
+            res.status(200).send(call); 
+        };
+    }
+
     public async postDeleteCallById(req: Request, res: Response){
         const call = await this.callService.postDeleteCallById(req.params.id);
         if (call == undefined) {
