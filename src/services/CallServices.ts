@@ -15,6 +15,10 @@ export class CallService{
         return this.callRepository.findUserCalls(userID);
     }
 
+    public async getCallByStatus(status: boolean): Promise<Call[] | undefined> {
+        return this.callRepository.findCallByStatus(status);
+    }
+
     public async postCreateCall(newCall: Call): Promise<CallReponse | undefined> {
         const {departament} = newCall;
         if (departaments["Departamentos"].includes(departament)){

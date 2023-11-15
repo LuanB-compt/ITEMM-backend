@@ -16,6 +16,7 @@ export class CallController{
         this.router.post(this.path + '/:id', this.postUpdateCallById.bind(this));
         this.router.get(this.path + '/:id', this.getCallById.bind(this));
         this.router.get(this.path + 's/:id', this.getUserCalls.bind(this));
+        this.router.get(this.path + 's/:status', this.getCallByStatus.bind(this));
         this.router.post(this.path + '/delete/:id', this.postDeleteCallById.bind(this));
     }
 
@@ -53,6 +54,16 @@ export class CallController{
 
     public async getUserCalls(req: Request, res: Response){
         const calls = await this.callService.getUserCalls(req.params.id);
+        if (calls == undefined) {
+            res.status(400).send({message:"Error"});
+        }
+        else {
+            res.status(200).send(calls); 
+        };
+    }
+
+    public async getCallByStatus(req: Request, res: Response){
+        const calls = await this.callService.getCallByStatus(Boolean(req.params.status));
         if (calls == undefined) {
             res.status(400).send({message:"Error"});
         }

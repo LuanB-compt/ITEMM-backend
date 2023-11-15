@@ -41,6 +41,13 @@ export class CallRepository{
         return this.checkDocs(docs);
     }
 
+    public async findCallByStatus(status: boolean): Promise<Call[] | undefined>{
+        const calls = db.collection('Call').where("status", "==", status).
+        withConverter(documentConverter<Call>());
+        const docs = (await calls.get()).docs
+        return this.checkDocs(docs);
+    }
+
     public async updateCallById(id: string, data: any): Promise<CallReponse | undefined>{
         const call = db.collection('Call').doc(id).withConverter(documentConverter<Call>());
         await call.update(data);
