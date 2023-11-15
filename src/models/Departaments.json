@@ -1,7 +1,5 @@
 {
-    "1":"Pedagógico",
-    "2":"Seleção",
-    "3":"Social",
-    "4":"Depart. Pessoal",
-    "5":"Comercial"
+    "Departamentos":[
+        "Pedagógico", "Seleção", "Social", "Pessoal", "Comercial"
+    ]
 }

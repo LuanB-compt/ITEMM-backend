@@ -1,4 +1,4 @@
-import { DocumentSnapshot } from "firebase-admin/firestore";
+import { DocumentSnapshot, QueryDocumentSnapshot } from "firebase-admin/firestore";
 import { db } from "../database/firebase";
 import { Call, CallReponse } from "../models/Call";
 import { documentConverter } from "../utils/DocumentConverter";
@@ -9,6 +9,16 @@ export class CallRepository{
     private checkDoc(doc: DocumentSnapshot<Call>): CallReponse | undefined {
         if (doc == undefined){return undefined}
         else {return {"call":doc.data(), "id": doc.id}};
+    }
+
+    private checkDocs(docs: QueryDocumentSnapshot<Call>[]): Call[] | undefined {
+        try{
+            let userCalls: Call[] = [];
+            docs.forEach(function (doc: QueryDocumentSnapshot<Call>) {
+                userCalls.push(doc.data());
+            })
+            return userCalls;
+        } catch { return undefined } ;
     }
 
     public async createCall(newCall: Call): Promise<CallReponse | undefined>{
@@ -24,6 +34,13 @@ export class CallRepository{
         return this.checkDoc(doc);
     }
 
+    public async findUserCalls(userID: string): Promise<Call[] | undefined>{
+        const calls = db.collection('Call').where("userID", "==", userID).
+        withConverter(documentConverter<Call>());
+        const docs = (await calls.get()).docs
+        return this.checkDocs(docs);
+    }
+
     public async updateCallById(id: string, data: any): Promise<CallReponse | undefined>{
         const call = db.collection('Call').doc(id).withConverter(documentConverter<Call>());
         await call.update(data);
@@ -33,18 +50,10 @@ export class CallRepository{
 
     public async deleteCallById(id: string): Promise<CallReponse | undefined>{
         const call = db.collection('Call').doc(id).withConverter(documentConverter<Call>());
-        call.update({
+        await call.update({
             status: false
         })
-        .catch((err) => {
-            console.log("error delete");
-            console.log(err);
-            return undefined;
-        })
-        .finally(async () => {
-            const doc = await call.get();
-            return this.checkDoc(doc);
-        });
-        return undefined;
+        const doc = await call.get();
+        return this.checkDoc(doc);
     }
 }

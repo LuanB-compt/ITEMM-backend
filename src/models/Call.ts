@@ -3,6 +3,7 @@ export type Call = {
     status: boolean;
     description: string;
     departament: string;
+    userID: string;
 }
 
 export type CallReponse = {

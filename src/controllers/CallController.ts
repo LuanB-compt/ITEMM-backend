@@ -15,12 +15,13 @@ export class CallController{
         this.router.post(this.path, this.postCreateCall.bind(this));
         this.router.post(this.path + '/:id', this.postUpdateCallById.bind(this));
         this.router.get(this.path + '/:id', this.getCallById.bind(this));
+        this.router.get(this.path + 's/:id', this.getUserCalls.bind(this));
         this.router.post(this.path + '/delete/:id', this.postDeleteCallById.bind(this));
     }
 
     public async postCreateCall(req: Request, res: Response){
-        const {subject, status, description, departament} = req.body;
-        const newCall: Call = {subject, status, description, departament}
+        const {subject, status, description, departament, userID} = req.body;
+        const newCall: Call = {subject, status, description, departament, userID}
         const response = await this.callService.postCreateCall(newCall);
         if (response == undefined) {
             res.status(400).send({message:"Error"});
@@ -47,6 +48,16 @@ export class CallController{
         }
         else {
             res.status(200).send(call); 
+        };
+    }
+
+    public async getUserCalls(req: Request, res: Response){
+        const calls = await this.callService.getUserCalls(req.params.id);
+        if (calls == undefined) {
+            res.status(400).send({message:"Error"});
+        }
+        else {
+            res.status(200).send(calls); 
         };
     }
 
